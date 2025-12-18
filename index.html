@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Te extraño Nayelita</title>
 <style>
+  
   body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -127,7 +128,53 @@
     .scratch {
       margin: 0 auto;
     }
-  }
+
+
+.scratch {
+  text-align: center;
+  touch-action: none;
+}
+
+.scratch-container {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 20px auto;
+}
+
+#scratchCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #facc15;
+  border-radius: 14px;
+  z-index: 5;
+}
+
+#contenido {
+  position: relative;
+  z-index: 2;
+}
+
+#contenido img {
+  width: 180px;
+  margin-top: 20px;
+}
+
+#contenido p {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #d50000;
+}
+
+.raspa-texto {
+  font-weight: bold;
+  color: #d50000;
+  margin-bottom: 8px;
+}
+
 </style>
 </head>
 <body>
@@ -141,21 +188,25 @@
     <p class="firma">Desde el corazón.</p>
   </div>
 
-  <div class="scratch">
-    <div class="raspa-texto" id="raspaTexto">RASPA AQUÍ</div>
-    <canvas id="scratchCanvas" width="220" height="220"></canvas>
+<div class="scratch">
+  <div class="raspa-texto" id="raspaTexto">RASPA AQUÍ</div>
+
+  <div class="scratch-container">
+    <canvas id="scratchCanvas"></canvas>
     <div id="contenido">
-      <a href="https://music.youtube.com/watch?v=QoD1M91HOc4&si=xn_AKL5BqD6KlXMz" target="_blank" rel="noopener noreferrer">
-        <img src="QR musica.png" alt="Código QR" />
+      <a href="https://music.youtube.com/watch?v=2C29r956v40&si=voW7xFxNXOi452HC" target="_blank">
+        <img src="QR musica.png" />
       </a>
       <p>Da click en el código QR</p>
     </div>
   </div>
 </div>
 
+
 <script>
   const canvas = document.getElementById('scratchCanvas');
-  const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext("2d");
+ctx.globalCompositeOperation = "destination-out";
   const raspaTexto = document.getElementById('raspaTexto');
   const contenido = document.getElementById('contenido');
 
@@ -173,6 +224,7 @@
 
   function raspar(e) {
     if (!raspando) return;
+   e.preventDefault();
     const { x, y } = getPos(e);
     ctx.globalCompositeOperation = 'destination-out';
     ctx.beginPath();
@@ -206,6 +258,55 @@
       contenido.style.display = 'flex';
     }
   }
+</script>
+<script>
+const canvas = document.getElementById("scratchCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+
+// Pintar capa amarilla
+ctx.fillStyle = "#facc15";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.globalCompositeOperation = "destination-out";
+
+let raspando = false;
+
+function getPos(e) {
+  const rect = canvas.getBoundingClientRect();
+  if (e.touches) {
+    return {
+      x: e.touches[0].clientX - rect.left,
+      y: e.touches[0].clientY - rect.top
+    };
+  }
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
+}
+
+function raspar(e) {
+  if (!raspando) return;
+  e.preventDefault();
+
+  const pos = getPos(e);
+  ctx.beginPath();
+  ctx.arc(pos.x, pos.y, 18, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+canvas.addEventListener("mousedown", () => raspando = true);
+canvas.addEventListener("mouseup", () => raspando = false);
+canvas.addEventListener("mouseleave", () => raspando = false);
+
+canvas.addEventListener("touchstart", () => raspando = true);
+canvas.addEventListener("touchend", () => raspando = false);
+canvas.addEventListener("touchmove", raspar);
+
+canvas.addEventListener("mousemove", raspar);
 </script>
 
 </body>
