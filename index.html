@@ -2,160 +2,81 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Te extraño Nayelita</title>
+
 <style>
-  
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(180deg, #12b76a, #7dd3fc);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-  }
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(180deg, #1bb76a, #7dd3fc);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
 
-  .card {
-    width: 100%;
-    max-width: 1000px;
-    background: #fff;
-    border-radius: 22px;
-    padding: 30px;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    display: flex;
-    gap: 30px;
-    border: 5px solid #f59e0b;
-  }
+.card {
+  background: #fff;
+  border-radius: 22px;
+  border: 5px solid #f59e0b;
+  max-width: 1000px;
+  width: 100%;
+  padding: 30px;
+  display: flex;
+  gap: 30px;
+}
 
-  .texto {
-    flex: 1;
-  }
+.texto {
+  flex: 1;
+}
 
-  h1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-    color: #111827;
-  }
+.texto h1 {
+  margin-top: 0;
+}
 
-  .mensaje {
-    font-size: 15px;
-    line-height: 1.7;
-    color: #374151;
-  }
+.texto p {
+  line-height: 1.5;
+}
 
-  .firma {
-    margin-top: 25px;
-    font-size: 18px;
-    font-weight: bold;
-    font-style: italic;
-    color: #e11d48;
-  }
-
-  .scratch {
-    width: 220px;
-    height: 220px;
-    background: #facc15;
-    border-radius: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  .raspa-texto {
-    position: absolute;
-    z-index: 5;
-    font-weight: bold;
-    color: #92400e;
-    font-size: 16px;
-    pointer-events: none;
-  }
-
-  #contenido {
-    display: none;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    animation: aparecer 0.6s ease-out forwards;
-  }
-
-  @keyframes aparecer {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  #contenido img {
-    width: 160px;
-    height: 160px;
-    border-radius: 12px;
-    margin-bottom: 10px;
-  }
-
-  #contenido p {
-    font-size: 16px;
-    color: #000000;
-    font-weight: bold;
-  }
-
-  canvas {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-  }
-
-  /* ===== Responsive móvil ===== */
-  @media (max-width: 768px) {
-    .card {
-      flex-direction: column;
-      padding: 25px;
-    }
-
-    h1 {
-      font-size: 24px;
-    }
-
-    .mensaje {
-      font-size: 14px;
-    }
-
-    .scratch {
-      margin: 0 auto;
-    }
-
+.firma {
+  color: crimson;
+  font-style: italic;
+  font-weight: bold;
+}
 
 .scratch {
+  width: 240px;
   text-align: center;
   touch-action: none;
+}
+
+.raspa-texto {
+  font-weight: bold;
+  color: #d50000;
+  margin-bottom: 8px;
 }
 
 .scratch-container {
   position: relative;
   width: 220px;
   height: 220px;
-  margin: 20px auto;
+  margin: auto;
 }
 
 #scratchCanvas {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: #facc15;
-  border-radius: 14px;
-  z-index: 5;
+  border-radius: 16px;
+  z-index: 3;
+  touch-action: none;
 }
 
 #contenido {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 #contenido img {
@@ -164,111 +85,52 @@
 }
 
 #contenido p {
-  margin-top: 10px;
+  margin: 8px 0 0;
   font-weight: bold;
   color: #d50000;
 }
 
-.raspa-texto {
-  font-weight: bold;
-  color: #d50000;
-  margin-bottom: 8px;
-}
 @media (max-width: 768px) {
-  .raspa-texto {
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: block;
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 }
-
 </style>
 </head>
+
 <body>
 
 <div class="card">
   <div class="texto">
     <h1>Te extraño Nayelita.</h1>
-    <p class="mensaje">
-      De vdd le ruego a la vida que no me hayas cerrado la puerta por completo. No sabes, no imaginas la soledad que siente mi alma, eres tú lo que quiero y ya entiendo todo lo que te hacía sentir. Las noches son más frías y el dolor más cruel, ahora más que nunca te sueño diario jaja, pero más que "nostalgia" me llega la motivación de cumplir lo prometido. Po extraño cada mensaje que tenía, extraño sentirte aun teniéndote en medio de la distancia, extraño contestar una videollamada y ver esos ojos que me enamoran, simplemente… te extraño buey.
+    <p>
+      De vdd le ruego a la vida que no me hayas cerrado la puerta por completo.
+      No sabes la soledad que siente mi alma. Eres tú lo que quiero y entiendo
+      todo lo que te hacía sentir. Las noches son más frías y el dolor más cruel.
+      Te sueño diario y más que nostalgia, me llega la motivación de cumplir lo
+      prometido. Te extraño cada mensaje, cada llamada… simplemente, te extraño.
     </p>
     <p class="firma">Desde el corazón.</p>
   </div>
 
-<div class="scratch">
-  <div class="raspa-texto">RASPA AQUÍ</div>
+  <div class="scratch">
+    <div class="raspa-texto">RASPA AQUÍ</div>
 
-  <div class="scratch-container">
-    <canvas id="scratchCanvas"></canvas>
-    <div id="contenido">
-      <a href="https://music.youtube.com/watch?v=2C29r956v40&si=voW7xFxNXOi452HC" target="_blank">
-        <img src="QR musica.png" />
-      </a>
-      <p>Da click en el código QR</p>
+    <div class="scratch-container">
+      <canvas id="scratchCanvas"></canvas>
+
+      <div id="contenido">
+        <a href="https://music.youtube.com/watch?v=2C29r956v40&si=voW7xFxNXOi452HC" target="_blank">
+          <img src="QR musica.png" alt="QR Música">
+        </a>
+        <p>Da click en el código QR</p>
+      </div>
     </div>
   </div>
 </div>
 
-
-<script>
-  const canvas = document.getElementById('scratchCanvas');
-const ctx = canvas.getContext("2d");
-ctx.globalCompositeOperation = "destination-out";
-  const raspaTexto = document.getElementById('raspaTexto');
-  const contenido = document.getElementById('contenido');
-
-  ctx.fillStyle = '#facc15';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  let raspando = false;
-
-  function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-    return { x, y };
-  }
-
-  function raspar(e) {
-    if (!raspando) return;
-   e.preventDefault();
-    const { x, y } = getPos(e);
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 18, 0, Math.PI * 2);
-    ctx.fill();
-    raspaTexto.style.display = 'none';
-    verificar();
-  }
-
-  canvas.addEventListener('mousedown', () => raspando = true);
-  canvas.addEventListener('mouseup', () => raspando = false);
-  canvas.addEventListener('mouseleave', () => raspando = false);
-  canvas.addEventListener('mousemove', raspar);
-
-  canvas.addEventListener('touchstart', () => raspando = true);
-  canvas.addEventListener('touchend', () => raspando = false);
-  canvas.addEventListener('touchmove', raspar);
-
-  function verificar() {
-    const data = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    let transparentes = 0;
-
-    for (let i = 3; i < data.length; i += 4) {
-      if (data[i] === 0) transparentes++;
-    }
-
-    const porcentaje = transparentes / (data.length / 4) * 100;
-
-    if (porcentaje > 45) {
-      canvas.style.display = 'none';
-      contenido.style.display = 'flex';
-    }
-  }
-</script>
 <script>
 const canvas = document.getElementById("scratchCanvas");
 const ctx = canvas.getContext("2d");
@@ -276,49 +138,40 @@ const ctx = canvas.getContext("2d");
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
-// Pintar capa amarilla
+// capa amarilla
 ctx.fillStyle = "#facc15";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+// modo borrar
 ctx.globalCompositeOperation = "destination-out";
 
 let raspando = false;
 
-function getPos(e) {
+function pos(e) {
   const rect = canvas.getBoundingClientRect();
-  if (e.touches) {
-    return {
-      x: e.touches[0].clientX - rect.left,
-      y: e.touches[0].clientY - rect.top
-    };
-  }
-  return {
-    x: e.clientX - rect.left,
-    y: e.clientY - rect.top
-  };
+  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+  const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+  return { x, y };
 }
 
 function raspar(e) {
   if (!raspando) return;
   e.preventDefault();
-
-  const pos = getPos(e);
+  const p = pos(e);
   ctx.beginPath();
-  ctx.arc(pos.x, pos.y, 18, 0, Math.PI * 2);
+  ctx.arc(p.x, p.y, 18, 0, Math.PI * 2);
   ctx.fill();
 }
 
 canvas.addEventListener("mousedown", () => raspando = true);
 canvas.addEventListener("mouseup", () => raspando = false);
 canvas.addEventListener("mouseleave", () => raspando = false);
+canvas.addEventListener("mousemove", raspar);
 
 canvas.addEventListener("touchstart", () => raspando = true);
 canvas.addEventListener("touchend", () => raspando = false);
 canvas.addEventListener("touchmove", raspar);
-
-canvas.addEventListener("mousemove", raspar);
 </script>
 
 </body>
 </html>
-
