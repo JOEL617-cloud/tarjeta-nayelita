@@ -1,177 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Te extraño Nayelita</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(180deg, #1bb76a, #7dd3fc);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.card {
-  background: #fff;
-  border-radius: 22px;
-  border: 5px solid #f59e0b;
-  max-width: 1000px;
-  width: 100%;
-  padding: 30px;
-  display: flex;
-  gap: 30px;
-}
-
-.texto {
-  flex: 1;
-}
-
-.texto h1 {
-  margin-top: 0;
-}
-
-.texto p {
-  line-height: 1.5;
-}
-
-.firma {
-  color: crimson;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.scratch {
-  width: 240px;
-  text-align: center;
-  touch-action: none;
-}
-
-.raspa-texto {
-  font-weight: bold;
-  color: #d50000;
-  margin-bottom: 8px;
-}
-
-.scratch-container {
-  position: relative;
-  width: 220px;
-  height: 220px;
-  margin: auto;
-}
-
-#scratchCanvas {
-  position: absolute;
-  inset: 0;
-  background: #facc15;
-  border-radius: 16px;
-  z-index: 3;
-  touch-action: none;
-}
-
-#contenido {
-  position: relative;
-  z-index: 1;
-}
-
-#contenido img {
-  width: 180px;
-  margin-top: 20px;
-}
-
-#contenido p {
-  margin: 8px 0 0;
-  font-weight: bold;
-  color: #d50000;
-}
-
-@media (max-width: 768px) {
-  .card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Te extraño Nayelita</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="card">
+
   <div class="texto">
-    <h1>Te extraño Nayelita.</h1>
+    <h2>Te extraño Nayelita.</h2>
     <p>
-      De vdd le ruego a la vida que no me hayas cerrado la puerta por completo.
-      No sabes la soledad que siente mi alma. Eres tú lo que quiero y entiendo
-      todo lo que te hacía sentir. Las noches son más frías y el dolor más cruel.
-      Te sueño diario y más que nostalgia, me llega la motivación de cumplir lo
-      prometido. Te extraño cada mensaje, cada llamada… simplemente, te extraño.
+De vdd le ruego a la vida que no me hayas cerrado la puerta por completo. No sabes, no imaginas la soledad k siente mi alma, eres tu lo que quiero y ya entiendo todo lo que te hacia sentir. Las noches son mas frías y el dolor mas cruel, ahora mas que nunca te sueño diario jaja pero mas que "nostalgia" me llega la motivación de cumplir lo prometido. Pq extraño cada mensaje que tenia, extraño sentirte aun teniendo en medio la distancia, extraño contestar una videollamada y ver esos ojos que me enamoran, simplemente. testraño buey.
     </p>
-    <p class="firma">Desde el corazón.</p>
+    <span>Desde el corazón.</span>
   </div>
 
-  <div class="scratch">
-    <div class="raspa-texto">RASPA AQUÍ</div>
+  <div class="scratch-zone">
+    <p class="raspa">RASPA AQUÍ</p>
 
-    <div class="scratch-container">
-      <canvas id="scratchCanvas"></canvas>
-
-      <div id="contenido">
-        <a href="https://music.youtube.com/watch?v=2C29r956v40&si=voW7xFxNXOi452HC" target="_blank">
-          <img src="QR musica.png" alt="QR Música">
-        </a>
-        <p>Da click en el código QR</p>
-      </div>
+    <div class="scratch-box">
+      <img src="QR.png" class="qr">
+      <canvas id="canvas"></canvas>
     </div>
+
+    <p class="click">Da click en el código QR</p>
   </div>
+
 </div>
 
-<script>
-const canvas = document.getElementById("scratchCanvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = canvas.offsetWidth;
-canvas.height = canvas.offsetHeight;
-
-// capa amarilla
-ctx.fillStyle = "#facc15";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-// modo borrar
-ctx.globalCompositeOperation = "destination-out";
-
-let raspando = false;
-
-function pos(e) {
-  const rect = canvas.getBoundingClientRect();
-  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-  const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-  return { x, y };
-}
-
-function raspar(e) {
-  if (!raspando) return;
-  e.preventDefault();
-  const p = pos(e);
-  ctx.beginPath();
-  ctx.arc(p.x, p.y, 18, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-canvas.addEventListener("mousedown", () => raspando = true);
-canvas.addEventListener("mouseup", () => raspando = false);
-canvas.addEventListener("mouseleave", () => raspando = false);
-canvas.addEventListener("mousemove", raspar);
-
-canvas.addEventListener("touchstart", () => raspando = true);
-canvas.addEventListener("touchend", () => raspando = false);
-canvas.addEventListener("touchmove", raspar);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
