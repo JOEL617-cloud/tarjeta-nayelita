@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  touch-action: none;
 }
 
 body {
@@ -15,20 +14,20 @@ body {
 
 .card {
   background: white;
-  border-radius: 20px;
   padding: 20px;
-  max-width: 720px;
-  width: 95%;
+  border-radius: 18px;
   display: flex;
   gap: 20px;
+  max-width: 800px;
+  width: 95%;
 }
 
-.texto {
+.text {
   flex: 1;
 }
 
-.scratch-zone {
-  width: 220px;
+.scratch-area {
+  width: 240px;
   text-align: center;
 }
 
@@ -45,23 +44,25 @@ body {
   border-radius: 14px;
 }
 
-#canvas {
+#scratchCanvas {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 220px;
-  height: 220px;
+  inset: 0;
   background: #facc15;
   border-radius: 14px;
+  z-index: 10;
+  touch-action: none;
 }
 
-.raspa {
-  font-weight: bold;
+.hint {
   color: red;
-  margin-bottom: 6px;
+  font-weight: normal;
+  margin: 8px 0;
 }
 
-.click {
-  color: red;
-  font-size: 14px;
+@media (max-width: 700px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }

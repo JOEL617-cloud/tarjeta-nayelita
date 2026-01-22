@@ -1,43 +1,71 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("scratchCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 220;
-canvas.height = 220;
+const SIZE = 220;
+canvas.width = SIZE;
+canvas.height = SIZE;
 
+// pintar capa amarilla
 ctx.fillStyle = "#facc15";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+ctx.fillRect(0, 0, SIZE, SIZE);
 
-let drawing = false;
+// para calcular porcentaje raspado
+let totalPixels = SIZE * SIZE;
+let cleared = false;
+
+let isDrawing = false;
 
 function getPos(e) {
   const rect = canvas.getBoundingClientRect();
-  if (e.touches) {
-    return {
-      x: e.touches[0].clientX - rect.left,
-      y: e.touches[0].clientY - rect.top
-    };
-  }
+  const touch = e.touches ? e.touches[0] : e;
   return {
-    x: e.clientX - rect.left,
-    y: e.clientY - rect.top
+    x: touch.clientX - rect.left,
+    y: touch.clientY - rect.top
   };
 }
 
 function scratch(e) {
-  if (!drawing) return;
+  if (!isDrawing || cleared) return;
   e.preventDefault();
-  const p = getPos(e);
+
+  const { x, y } = getPos(e);
 
   ctx.globalCompositeOperation = "destination-out";
   ctx.beginPath();
-  ctx.arc(p.x, p.y, 18, 0, Math.PI * 2);
+  ctx.arc(x, y, 20, 0, Math.PI * 2);
   ctx.fill();
+
+  checkCleared();
 }
 
-canvas.addEventListener("mousedown", () => drawing = true);
-canvas.addEventListener("mouseup", () => drawing = false);
+function checkCleared() {
+  const imageData = ctx.getImageData(0, 0, SIZE, SIZE).data;
+  let transparent = 0;
+
+  for (let i = 3; i < imageData.length; i += 4) {
+    if (imageData[i] === 0) transparent++;
+  }
+
+  const percent = transparent / totalPixels;
+
+  if (percent > 0.5) {
+    cleared = true;
+    ctx.clearRect(0, 0, SIZE, SIZE);
+    canvas.style.display = "none";
+  }
+}
+
+// mouse
+canvas.addEventListener("mousedown", () => isDrawing = true);
+canvas.addEventListener("mouseup", () => isDrawing = false);
+canvas.addEventListener("mouseleave", () => isDrawing = false);
 canvas.addEventListener("mousemove", scratch);
 
-canvas.addEventListener("touchstart", () => drawing = true);
-canvas.addEventListener("touchend", () => drawing = false);
-canvas.addEventListener("touchmove", scratch);
+// touch
+canvas.addEventListener("touchstart", (e) => {
+  isDrawing = true;
+  e.preventDefault();
+}, { passive: false });
+
+canvas.addEventListener("touchend", () => isDrawing = false);
+canvas.addEventListener("touchmove", scratch, { passive: false });
