@@ -8,8 +8,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(#38bdf8, #22c55e);
-  font-family: Arial, sans-serif;
+  background: linear-gradient(#c70244, #e9da87);
+  font-family: Arial, century, "Century Gothic", "Apple Gothic", sans-serif;
 }
 
 .card {
@@ -54,9 +54,9 @@ body {
 }
 
 .hint {
-  color: red;
+  color: rgb(0, 0, 0);
   font-weight: normal;
-  margin: 8px 0;
+  margin: 6px 0;
 }
 
 @media (max-width: 700px) {
